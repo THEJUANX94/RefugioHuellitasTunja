@@ -56,7 +56,7 @@ CREATE TABLE Adoptions
 );
 
 
-ALTER TABLE Login 
+ALTER TABLE Login
 	add CONSTRAINT log_log_PK PRIMARY KEY (login);
 	
 ALTER TABLE "User"  
