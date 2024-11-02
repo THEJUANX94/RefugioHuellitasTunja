@@ -1,0 +1,84 @@
+CREATE TABLE Login 
+(
+	login varchar(255) NOT NULL,
+	password varchar(255) NOT NULL
+);
+
+CREATE TABLE "User"
+(
+	login VARCHAR (255) NOT NULL,
+	name varchar(50) NOT NULL,
+	lastname varchar(50) NOT NULL,
+	"type" CHAR(1) NOT NULL,
+	phonenumber VARCHAR(11),
+	email varchar(255) NOT NULL,
+	address varchar(255)
+);
+
+CREATE TABLE Species
+(
+	idspecies uuid DEFAULT gen_random_uuid(),
+	name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Pets 
+(
+	idPet uuid DEFAULT gen_random_uuid(),
+	idspecies uuid DEFAULT gen_random_uuid(),
+	name varchar(50) NOT NULL,
+	birthday DATE NOT NULL,
+	race VARCHAR(50) NOT NULL,
+	details VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Forms 
+(
+	idform uuid DEFAULT gen_random_uuid(),
+	login VARCHAR (255) NOT NULL,
+	linkForm VARCHAR (255) NOT NULL
+);
+
+
+CREATE TABLE Images
+(
+	idPet uuid DEFAULT gen_random_uuid(),
+	linkImage VARCHAR(255)
+);
+
+
+CREATE TABLE Adoptions
+(
+	idpet uuid DEFAULT gen_random_uuid(),
+	idform uuid DEFAULT gen_random_uuid(),
+	"state" CHAR(1) NOT NULL,
+	collectionDate DATE NOT NULL
+);
+
+
+ALTER TABLE Login 
+	add CONSTRAINT log_log_PK PRIMARY KEY (login);
+	
+ALTER TABLE "User" 
+	ADD CONSTRAINT user_login_PK PRIMARY KEY (login),
+	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'))
+	
+ALTER TABLE Species
+	ADD CONSTRAINT spe_idspecies_PK PRIMARY KEY (idspecies);
+	
+ALTER TABLE Pets
+	ADD CONSTRAINT pet_idpet_PK PRIMARY KEY (idpet),
+	ADD CONSTRAINT pet_idspecies_FK FOREIGN KEY (idspecies) REFERENCES Species(idspecies);
+	
+ALTER TABLE Images 
+	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet)
+	
+ALTER TABLE Forms
+	ADD CONSTRAINT frm_idform_PK PRIMARY KEY (idform),
+	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login)
+	
+ALTER TABLE Adoptions
+	ADD CONSTRAINT adp_state_CK CHECK ("state" in ('A', 'D', 'W')),
+	ADD CONSTRAINT adp_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet),
+	ADD CONSTRAINT adp_idform_FK FOREIGN KEY (idform) REFERENCES Forms(idform),
+	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform)
