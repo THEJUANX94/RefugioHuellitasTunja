@@ -23,6 +23,18 @@ const login = async (req, res) => {
                     res.cookie('session', { roleId: 1 }, { httpOnly: true });
                     res.json({ message: 'Autenticado correctamente' });
                 }
+                else if (results.rows[0].type === 'C') {
+                    const token = jwt.sign({ userId: 2, role: 'Client' }, 'secretKey', { expiresIn: '1h' });
+                    res.cookie('token', token, { httpOnly: true });
+                    res.cookie('session', { roleId: 2 }, { httpOnly: true });
+                    res.json({ message: 'Autenticado correctamente' });
+                }
+                else if (results.rows[0].type === 'E') {
+                    const token = jwt.sign({ userId: 3, role: 'Employee' }, 'secretKey', { expiresIn: '1h' });
+                    res.cookie('token', token, { httpOnly: true });
+                    res.cookie('session', { roleId: 3 }, { httpOnly: true });
+                    res.json({ message: 'Autenticado correctamente' });
+                }
             });
             
         });
