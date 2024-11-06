@@ -16,24 +16,16 @@ const getUserbyLogin = async (req, res) => {
 }
 
 const createUser = async (req, res) => {
-    const { login, password, name, lastname, type, phonenumber, email, address } = req.body;
+    const { login, name, lastname, type, phonenumber, email, address } = req.body;
 
-    pool.query('SELECT * FROM login WHERE login = ?', [login], (err, results) => {
+    pool.query('SELECT * FROM login WHERE login = $1', [login], (err, results) => {
         if (err) return res.status(500).json({ message: 'Error en el servidor' });
         if (results.length = 0) return res.status(400).json({ message: 'Usuario ya existe' });
-
-        bcrypt.hash(password, 10, (err, hash) => {
-            if (err) return res.status(500).json({ message: 'Error al hashear la contraseña' });
-
-            pool.query('INSERT INTO login (login, password) VALUES (?, ?)', [login, hash], (err, results) => {
+        pool.query('INSERT INTO "User" (login, name, lastname, type, phonenumber, email, address) VALUES ($1, $2, $3, $4, $5, $6, $7)', [login, name, lastname, type, phonenumber, email, address], (err, results) => {
                 if (err) return res.status(500).json({ message: 'Error al registrar el usuario' });
                 res.status(201).json({ message: 'Usuario creado exitosamente' });
             });
-            pool.query('INSERT INTO "User" (login, name, lastname, type, phonenumber, email, address) VALUES (?, ?)', [login, name, lastname, type, phonenumber, email, address], (err, results) => {
-                if (err) return res.status(500).json({ message: 'Error al registrar el usuario' });
-                res.status(201).json({ message: 'Usuario creado exitosamente' });
-            });
-        });
+        
     });
 };
 

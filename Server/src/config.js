@@ -1,0 +1,1 @@
+const SECRET_KEY = 'Esto_es_una_clave_secreta_muy_secreta'; module.exports = { SECRET_KEY };
