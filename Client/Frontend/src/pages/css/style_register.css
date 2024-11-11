@@ -1,0 +1,119 @@
+.register-container {
+    background-image: url('../../components/img/background-image.jpg');
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: right;
+    background-size: cover;
+    background-position: center;
+    font-style: Inter;
+}
+
+.register-box {
+    background-color: rgba(255, 255, 255, 0.65);
+    padding: 2rem;
+    border-radius: 10%;
+    width: 30%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-right: 5rem;
+    color: #000;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.colums {
+    display: flex;
+    gap: 1rem;
+}
+
+.colums .form-group {
+    flex: 1;
+}
+
+.next-button {
+    background-color: #ECB176;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.next-button:hover {
+    background-color: #D3995F;
+}
+
+.button-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.prev-button {
+    width: 15%;
+    background-color: #ECB176;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.register-button {
+    width: 85%;
+    background-color: #ECB176;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.prev-button:hover,
+.register-button:hover {
+    background-color: #D3995F;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.3rem;
+}
+
+.links {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+
+.links a {
+    color: #ECB176;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: #D3995F;
+}

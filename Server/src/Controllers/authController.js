@@ -7,38 +7,40 @@ const login = async (req, res) => {
     const { login, password } = req.body;
 
     pool.query('SELECT * FROM login WHERE login = $1', [login], (err, results) => {
-        if (err) return res.status(500).json({ message: 'Error en el servidorr' });
-        if (results.length === 0) return res.status(401).json({ message: 'Usuario no encontrado' });
+        if (err) return res.status(500).json({ message: 'Error en el servidor' });
+        if (results.rows.length === 0) return res.status(401).json({ message: 'Usuario no encontrado' });
 
         bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
             if (err) return res.status(500).json({ message: 'Error en el servidor' });
-            if (!isMatch) return res.status(401).json({ message:`Contraseña incorrecta, Password ingresada: ${password}, Password en la base de datos: ${results.rows[0].password}, ${isMatch}`});
+            if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
-            pool.query('SELECT * FROM "User" WHERE login = $1', [login], (err, results) => {
+            pool.query('SELECT * FROM "User" WHERE login = $1', [login], (err, userResults) => {
                 if (err) return console.error('Error querying database:', err);
-                if (results.rows[0].type === 'A') {
+
+                const username = userResults.rows[0].login;
+                if (userResults.rows[0].type === 'A') {
                     const token = jwt.sign({ userId: 1, role: 'admin' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 1 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente' });
+                    res.json({ message: 'Autenticado correctamente', username });
                 }
-                else if (results.rows[0].type === 'C') {
+                else if (userResults.rows[0].type === 'C') {
                     const token = jwt.sign({ userId: 2, role: 'Client' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 2 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente' });
+                    res.json({ message: 'Autenticado correctamente', username });
                 }
-                else if (results.rows[0].type === 'E') {
+                else if (userResults.rows[0].type === 'E') {
                     const token = jwt.sign({ userId: 3, role: 'Employee' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 3 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente' });
+                    res.json({ message: 'Autenticado correctamente', username });
                 }
             });
-            
         });
     });
 };
+
 
 const logout = async (req, res) => {
     res.clearCookie('access_token')

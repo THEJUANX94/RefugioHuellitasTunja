@@ -1,0 +1,53 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5rem;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a{
+    position: absolute;
+    top: 0;
+    padding: 3px 0;
+}
+
+.logo img {
+    height: 50px;
+    width: 130px;
+    object-fit: cover;
+    margin-right: 0.5rem;
+    overflow: hidden;
+}
+
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav a {
+    color: #000;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #ECB176;
+}
+
+.nav .active {
+    color: #ECB176;
+    font-weight: bold;
+    border-bottom: 2px solid #ECB176;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
