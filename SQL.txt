@@ -61,7 +61,7 @@ ALTER TABLE Login
 	
 ALTER TABLE "User"  
 	ADD CONSTRAINT user_login_PK PRIMARY KEY (login),
-	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'))
+	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'));
 	
 ALTER TABLE Species
 	ADD CONSTRAINT spe_idspecies_PK PRIMARY KEY (idspecies);
@@ -71,14 +71,14 @@ ALTER TABLE Pets
 	ADD CONSTRAINT pet_idspecies_FK FOREIGN KEY (idspecies) REFERENCES Species(idspecies);
 	
 ALTER TABLE Images 
-	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet)
+	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet);
 	
 ALTER TABLE Forms
 	ADD CONSTRAINT frm_idform_PK PRIMARY KEY (idform),
-	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login)
+	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login);
 	
 ALTER TABLE Adoptions
 	ADD CONSTRAINT adp_state_CK CHECK ("state" in ('A', 'D', 'W')),
 	ADD CONSTRAINT adp_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet),
 	ADD CONSTRAINT adp_idform_FK FOREIGN KEY (idform) REFERENCES Forms(idform),
-	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform)
+	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform);

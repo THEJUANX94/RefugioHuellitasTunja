@@ -10,10 +10,9 @@ const login = async (req, res) => {
         if (err) return res.status(500).json({ message: 'Error en el servidorr' });
         if (results.length === 0) return res.status(401).json({ message: 'Usuario no encontrado' });
 
-        //Valida la contraseña ingresada
         bcrypt.compare(password, results.rows[0].password, (err, isMatch) => {
             if (err) return res.status(500).json({ message: 'Error en el servidor' });
-            if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
+            if (!isMatch) return res.status(401).json({ message:`Contraseña incorrecta, Password ingresada: ${password}, Password en la base de datos: ${results.rows[0].password}, ${isMatch}`});
 
             pool.query('SELECT * FROM "User" WHERE login = $1', [login], (err, results) => {
                 if (err) return console.error('Error querying database:', err);
