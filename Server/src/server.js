@@ -15,6 +15,7 @@ app.use(cookieParser())
 app.use(require('./Routes/authRoutes.js'))
 app.use(require('./Routes/userRoutes.js'))
 app.use(require('./Routes/petRoutes.js'))
+app.use(require('./Routes/FormRoutes'))
 
 
 app.listen(4000, () => {console.log("Server started on port 4000")})
