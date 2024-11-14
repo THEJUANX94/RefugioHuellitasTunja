@@ -55,13 +55,51 @@ CREATE TABLE Adoptions
 	collectionDate DATE NOT NULL
 );
 
+CREATE TABLE Producto 
+(
+	idProducto INTEGER NOT NULL,
+	nombre VARCHAR (255) NOT NULL,
+	unidadMedida VARCHAR (255) NOT NULL
+);
 
-ALTER TABLE Login
+CREATE TABLE Lote
+(
+	idLote INTEGER NOT NULL,
+	fechaRegistro DATE NOT NULL
+);
+
+CREATE TABLE Factura 
+(
+	idFactura INTEGER NOT NULL,
+	fecha DATE NOT NULL,
+	cliente VARCHAR(11) NOT NULL,
+	tipoPago CHAR NOT NULL
+);
+
+
+CREATE TABLE producto_lote
+(
+	idProducto INTEGER NOT NULL,
+	idLote INTEGER NOT NULL,
+	cantidad INTEGER NOT NULL,
+	fechaVencimiento DATE
+);
+
+CREATE TABLE detalle_factura
+(
+	idFactura INTEGER NOT NULL,
+	idProducto INTEGER NOT NULL,
+	cantidad INTEGER NOT NULL,
+	IVA FLOAT
+);
+
+
+ALTER TABLE Login 
 	add CONSTRAINT log_log_PK PRIMARY KEY (login);
 	
-ALTER TABLE "User"  
+ALTER TABLE "User" 
 	ADD CONSTRAINT user_login_PK PRIMARY KEY (login),
-	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'));
+	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'))
 	
 ALTER TABLE Species
 	ADD CONSTRAINT spe_idspecies_PK PRIMARY KEY (idspecies);
@@ -71,14 +109,39 @@ ALTER TABLE Pets
 	ADD CONSTRAINT pet_idspecies_FK FOREIGN KEY (idspecies) REFERENCES Species(idspecies);
 	
 ALTER TABLE Images 
-	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet);
+	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet)
 	
 ALTER TABLE Forms
 	ADD CONSTRAINT frm_idform_PK PRIMARY KEY (idform),
-	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login);
+	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login)
 	
 ALTER TABLE Adoptions
 	ADD CONSTRAINT adp_state_CK CHECK ("state" in ('A', 'D', 'W')),
 	ADD CONSTRAINT adp_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet),
 	ADD CONSTRAINT adp_idform_FK FOREIGN KEY (idform) REFERENCES Forms(idform),
 	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform);
+	
+	
+ALTER TABLE Producto
+	ADD CONSTRAINT prod_idprod_PK PRIMARY KEY (idProducto),
+	ADD CONSTRAINT prod_unitMed_CK CHECK (unidadMedida in ('Kg', 'g', 'l', 'ml', 'U'));
+	
+ALTER TABLE Lote
+	ADD CONSTRAINT lote_idLote_PK PRIMARY KEY (idLote);
+	
+ALTER TABLE producto_lote 
+	ADD CONSTRAINT prodlot_idprod_FK FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
+	ADD CONSTRAINT prodlot_idlot_FK FOREIGN KEY (idLote) REFERENCES Lote(idLote),
+	ADD CONSTRAINT prodlot_idlotidprod_PK PRIMARY KEY (idLote, idProducto);
+
+	
+ALTER TABLE Factura
+	ADD CONSTRAINT fac_idfac_PK PRIMARY KEY (idFactura),
+	ADD CONSTRAINT fac_client_FK FOREIGN KEY (cliente) REFERENCES "User"(login),
+	ADD CONSTRAINT fac_tipag_CK CHECK (tipoPago in ('N', 'D', 'C', 'E'));
+	
+ALTER TABLE detalle_factura
+	ADD CONSTRAINT detfac_idfac_FK FOREIGN KEY (idFactura) REFERENCES Factura(idFactura),
+	ADD CONSTRAINT detfac_idprod_FK FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
+	ADD CONSTRAINT detfac_idfacidprod_PK PRIMARY KEY (idFactura, idProducto);
+
