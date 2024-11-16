@@ -55,41 +55,41 @@ CREATE TABLE Adoptions
 	collectionDate DATE NOT NULL
 );
 
-CREATE TABLE Producto 
+CREATE TABLE products
 (
-	idProducto INTEGER NOT NULL,
-	nombre VARCHAR (255) NOT NULL,
-	unidadMedida VARCHAR (255) NOT NULL
+	idproduct INTEGER NOT NULL,
+	name VARCHAR (255) NOT NULL,
+	unitmesure VARCHAR (255) NOT NULL
 );
 
-CREATE TABLE Lote
+CREATE TABLE lot
 (
-	idLote INTEGER NOT NULL,
-	fechaRegistro DATE NOT NULL
+	idlot INTEGER NOT NULL,
+	registerdate DATE NOT NULL
 );
 
-CREATE TABLE Factura 
+CREATE TABLE bill 
 (
-	idFactura INTEGER NOT NULL,
-	fecha DATE NOT NULL,
-	cliente VARCHAR(11) NOT NULL,
-	tipoPago CHAR NOT NULL
+	idbill INTEGER NOT NULL,
+	date DATE NOT NULL,
+	client VARCHAR(11) NOT NULL,
+	payment_method CHAR NOT NULL
 );
 
 
-CREATE TABLE producto_lote
+CREATE TABLE products_lot
 (
-	idProducto INTEGER NOT NULL,
-	idLote INTEGER NOT NULL,
-	cantidad INTEGER NOT NULL,
-	fechaVencimiento DATE
+	idproduct INTEGER NOT NULL,
+	idlot INTEGER NOT NULL,
+	quantity INTEGER NOT NULL,
+	expiredate DATE
 );
 
-CREATE TABLE detalle_factura
+CREATE TABLE bill_detail
 (
-	idFactura INTEGER NOT NULL,
-	idProducto INTEGER NOT NULL,
-	cantidad INTEGER NOT NULL,
+	idbill INTEGER NOT NULL,
+	idproduct INTEGER NOT NULL,
+	quantity INTEGER NOT NULL,
 	IVA FLOAT
 );
 
@@ -122,26 +122,26 @@ ALTER TABLE Adoptions
 	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform);
 	
 	
-ALTER TABLE Producto
-	ADD CONSTRAINT prod_idprod_PK PRIMARY KEY (idProducto),
-	ADD CONSTRAINT prod_unitMed_CK CHECK (unidadMedida in ('Kg', 'g', 'l', 'ml', 'U'));
+ALTER TABLE products
+	ADD CONSTRAINT prod_idprod_PK PRIMARY KEY (idproduct),
+	ADD CONSTRAINT prod_unitMed_CK CHECK (unitmesure in ('Kg', 'g', 'l', 'ml', 'U'));
 	
-ALTER TABLE Lote
-	ADD CONSTRAINT lote_idLote_PK PRIMARY KEY (idLote);
+ALTER TABLE lot
+	ADD CONSTRAINT lot_idlot_PK PRIMARY KEY (idlot);
 	
-ALTER TABLE producto_lote 
-	ADD CONSTRAINT prodlot_idprod_FK FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
-	ADD CONSTRAINT prodlot_idlot_FK FOREIGN KEY (idLote) REFERENCES Lote(idLote),
-	ADD CONSTRAINT prodlot_idlotidprod_PK PRIMARY KEY (idLote, idProducto);
+ALTER TABLE products_lot 
+	ADD CONSTRAINT prodlot_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct),
+	ADD CONSTRAINT prodlot_idlot_FK FOREIGN KEY (idlot) REFERENCES Lote(idlot),
+	ADD CONSTRAINT prodlot_idlotidprod_PK PRIMARY KEY (idlot, idproduct);
 
 	
-ALTER TABLE Factura
-	ADD CONSTRAINT fac_idfac_PK PRIMARY KEY (idFactura),
-	ADD CONSTRAINT fac_client_FK FOREIGN KEY (cliente) REFERENCES "User"(login),
-	ADD CONSTRAINT fac_tipag_CK CHECK (tipoPago in ('N', 'D', 'C', 'E'));
+ALTER TABLE bill
+	ADD CONSTRAINT fac_idfac_PK PRIMARY KEY (idbill),
+	ADD CONSTRAINT fac_client_FK FOREIGN KEY (client) REFERENCES "User"(login),
+	ADD CONSTRAINT fac_tipag_CK CHECK (payment_method in ('N', 'D', 'C', 'E'));
 	
-ALTER TABLE detalle_factura
-	ADD CONSTRAINT detfac_idfac_FK FOREIGN KEY (idFactura) REFERENCES Factura(idFactura),
-	ADD CONSTRAINT detfac_idprod_FK FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
-	ADD CONSTRAINT detfac_idfacidprod_PK PRIMARY KEY (idFactura, idProducto);
+ALTER TABLE bill_detail
+	ADD CONSTRAINT detfac_idfac_FK FOREIGN KEY (idbill) REFERENCES Factura(idbill),
+	ADD CONSTRAINT detfac_idprod_FK FOREIGN KEY (idproduct) REFERENCES Producto(idproduct),
+	ADD CONSTRAINT detfac_idfacidprod_PK PRIMARY KEY (idbill, idproduct);
 
