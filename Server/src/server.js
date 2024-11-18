@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser())
 
-app.use(require('./Routes/authRoutes.js'))
+app.use(require('./Routes/auth.Routes.js'))
 app.use(require('./Routes/userRoutes.js'))
-app.use(require('./Routes/petRoutes.js'))
-app.use(require('./Routes/FormRoutes'))
+app.use(require('./Routes/pet.Routes.js'))
+app.use(require('./Routes/Form.Routes'))
 app.use(require('./Routes/bill.Routes.js'))
 app.use(require('./Routes/billDetail.Routes.js'))
 app.use(require('./Routes/lot.Routes.js'))

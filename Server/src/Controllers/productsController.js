@@ -1,4 +1,5 @@
 const { pool } = require('../database')
+const { v4: isUuid } = require('uuid');
 
 const getProducts = async (req, res) => {
     const response = await pool.query('SELECT * FROM products');
@@ -40,11 +41,36 @@ const updateProduct = async (req, res) => {
     res.send('Producto actualizado')
 }
 
+const inventoryPerProduct = async (req, res) => {
+    const idproduct = req.params.idproduct
+    console.log(idproduct);
+    const response = await pool.query(`SELECT 
+    p.idproduct,
+    p.name,
+    COALESCE(SUM(pl.quantity), 0) AS total_ingresos,
+    COALESCE(SUM(bd.quantity), 0) AS total_salidas,
+    COALESCE(SUM(pl.quantity), 0) - COALESCE(SUM(bd.quantity), 0) AS inventario_actual
+FROM 
+    products p
+LEFT JOIN 
+    products_lot pl ON p.idproduct = pl.idproduct
+LEFT JOIN 
+    bill_detail bd ON p.idproduct = bd.idproduct
+WHERE
+	p.idproduct = $1
+GROUP BY 
+    p.idproduct, p.name
+ORDER BY 
+    p.idproduct;`, [idproduct])
+    res.status(200).json(response.rows);
+}
+
 module.exports = {
     getProducts,
     createProduct,
     getProductByidproduct,
     deleteProduct, 
-    updateProduct
+    updateProduct,
+    inventoryPerProduct 
 }
 
