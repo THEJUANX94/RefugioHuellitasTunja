@@ -14,7 +14,7 @@ const uploadForm = async (data, login) => {
         pool.query('INSERT INTO forms (login, linkform) VALUES ($1, $2)', [login, linkform], (err, results) => {
             if (err) console.log({message: 'Error al registrar el usuario'});
         });
-        return response.data; // Devolver la respuesta en JSON
+        return response.data;
     } catch (error) {
         throw new Error(`Error haciendo la solicitud: ${error.response ? error.response.data : error.message}`);
     }

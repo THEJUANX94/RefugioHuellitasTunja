@@ -1,0 +1,25 @@
+.background {
+    background-image: url('../../components/img/background-adopt.jpg');
+    display: flex;
+    height: 28rem;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    font-style: Inter;
+}
+
+.title {
+    width: 70%;
+    height: 20%;
+    background-color: #ffffff7d;
+    align-items: center;
+
+}
+
+.title h1{
+    color: #6F4E37;
+    opacity: 100%;
+    text-align: center;
+
+}
