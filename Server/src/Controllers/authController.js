@@ -2,6 +2,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { pool } = require('../database')
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const login = async (req, res) => {
     const { login, password } = req.body;
@@ -82,9 +84,100 @@ function authMiddleware(req, res, next) {
     });
 }
 
+// Función para generar un token de restablecimiento
+const generateResetToken = () => {
+  return crypto.randomBytes(20).toString('hex');
+};
+
+// Función para guardar el token de restablecimiento
+const saveResetToken = async (login, resetToken) => {
+  try {
+    await pool.query('UPDATE login SET reset_token = $1, reset_token_expiration = $2 WHERE login = $3', [
+      resetToken,
+      Date.now() + 3600000, // 1 hora
+      login
+    ]);
+  } catch (error) {
+    console.error('Error al guardar el token de restablecimiento:', error);
+  }
+};
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'sebastianmn03@gmail.com',
+        pass: 'ydxk nrqz otti ovpo'
+    }
+});
+
+const sendResetEmail = async (email, resetToken) => {
+    const mailOptions = {
+        from: 'HuellitasTunja <sebastianmn03@gmail.com>',
+        to: email,
+        subject: 'Restablecer contraseña',
+        html: `
+            <p>Hola,</p>
+            <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:</p>
+            <a href="http://localhost:4000/reset-password/${resetToken}">Restablecer contraseña</a>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Correo electrónico enviado correctamente');
+    } catch (error) {
+        console.error('Error al enviar el correo electrónico:', error);
+    }
+};
+
+// Función para verificar el token y actualizar la contraseña
+const resetPassword = async (req, res) => {
+    const reset_token = req.params.resetToken
+    const { newPassword } = req.body;
+  try {
+    const result = await pool.query('SELECT * FROM login WHERE reset_token = $1 AND reset_token_expiration > $2', [
+      reset_token,
+      Date.now()
+    ]);
+    if (result.rows.length === 0) {
+      throw new Error('Token inválido o expirado');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await pool.query('UPDATE login SET password = $1, reset_token = NULL, reset_token_expiration = NULL WHERE login = $2', [
+      hashedPassword,
+      result.rows[0].login
+    ]);
+    
+  } catch (error) {
+    console.error('Error al restablecer la contraseña:', error);
+  }
+  res.status(200).json({ message: 'Cambio de contraseña correcto' });
+};
+
+const reset = async (req, res) => {
+    const { login } = req.body;
+  
+    pool.query('SELECT * FROM "User" WHERE login = $1', [login], (err, results) => {
+        const resetToken = generateResetToken();
+        saveResetToken(login, resetToken);
+        sendResetEmail(results.rows[0].email, resetToken)
+        if(err) res.status(404).json({ error: 'Usuario no encontrado' });
+        res.status(200).json({ message: 'Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña' });
+    }
+  )};
+
+
 module.exports = {
     login,
     logout,
     register,
-    authMiddleware
+    authMiddleware,
+    generateResetToken,
+    saveResetToken,
+    resetPassword,
+    sendResetEmail,
+    reset
 }
