@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Adopt from './pages/Adopt';
+import Dashboard from './pages/AdminPanel';
 
 function App() {
     return (
@@ -14,7 +15,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/adopt" element={<Adopt />} />
-
+                <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
         </Router>
     );

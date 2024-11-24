@@ -1,13 +1,16 @@
-// backend/controllers/userController.js
 const bcrypt = require('bcryptjs');
 const { pool } = require('../database')
 
 const getUsers = async (req, res) => {
-    pool.query('SELECT * FROM "User"', (err, results) => {
-        if (err) return res.status(500).json({ message: 'Error en el servidor' });
-        res.status(200).json(results.rows);
-    });
+    try {
+        const response = await pool.query('SELECT * FROM "User"'); 
+        res.json(response.rows);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ error: 'Error al obtener usuarios' });
+    }
 };
+
 
 const getUserbyLogin = async (req, res) => {
     const login = req.params.login
@@ -29,15 +32,13 @@ const createUser = async (req, res) => {
     });
 };
 
-
-
 const updateUser = async (req, res) => {
     const { password } = req.body;
     const login = req.params.login;
 
     if (password) {
         query += 'UPDATE login SET password = ?';
-        params.push(bcrypt.hashSync(password, 10)); // Hashear la nueva contraseña
+        params.push(bcrypt.hashSync(password, 10));
     }
     query += ' WHERE login = ?';
     params.push(login);
