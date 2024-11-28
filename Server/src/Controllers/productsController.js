@@ -1,5 +1,15 @@
 const { pool } = require('../database')
 const { v4: isUuid } = require('uuid');
+const { CLOUDINARY_URL } = require('../config');
+const { uploadForm } = require('./FormsController');
+const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
+
+cloudinary.config({
+    cloud_name: 'dg639pvia',
+    api_key: '488141991613393',
+    api_secret: 'LfPK2HfMGfhRxH1TuqSl0tAHB4k'
+});
 
 const getProducts = async (req, res) => {
     const response = await pool.query('SELECT * FROM products');
@@ -65,12 +75,39 @@ ORDER BY
     res.status(200).json(response.rows);
 }
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Temporary folder to store files before upload
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname); // Unique filename
+    }
+  });
+  
+const uploadImages = multer({ storage });
+
+const newImage = async (req, res, link) => {
+    const idproduct = req.params.idproduct;
+    pool.query(`INSERT INTO ProductImages (idproduct, linkimage) VALUES ('${idproduct}', '${link}')`)
+};
+
+const searchImages = async(req, res) => {
+    const idproduct = req.params.idproduct;
+    pool.query(`SELECT linkimage FROM ProductImages WHERE idproduct = '${idproduct}'`, (err, results) => {
+        if (err) return res.status(404).json({ message: 'Error, no se pudo encontrar el producto indicado.' });
+        res.status(200).json(results.rows);
+    });
+}
+
 module.exports = {
     getProducts,
     createProduct,
     getProductByidproduct,
     deleteProduct, 
     updateProduct,
-    inventoryPerProduct 
+    inventoryPerProduct,
+    newImage,
+    searchImages,
+    uploadImages
 }
 
