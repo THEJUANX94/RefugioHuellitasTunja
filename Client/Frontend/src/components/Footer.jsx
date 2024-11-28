@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/style_footer.css';
 import Logo from './img/Logo2.png';
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
@@ -14,7 +14,9 @@ const Footer = () => {
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaXTwitter /></a>
+                    <a href="https://Whatsapp.com" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
                 </div>
+                <p> <strong>© Copyright Huellitas Tunja  2024.</strong> </p>
             </div>
 
             <div className="footer-section">

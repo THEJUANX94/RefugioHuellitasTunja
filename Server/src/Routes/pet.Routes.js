@@ -1,6 +1,6 @@
 // backend/routes/userRoutes.js
 const express = require('express');
-const { createPet, getPets, getPetsById, updatePet, deletePet, uploadImages, newImage, searchImages } = require('../Controllers/petController.js');
+const { createPet, getPets, getPetsById, updatePet, deletePet, uploadImages, newImage, searchImages, getSpecies, getRacesBySpecies} = require('../Controllers/petController.js');
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
@@ -10,6 +10,8 @@ router.get('/pets', getPets);
 router.get('/pets/:idpet', getPetsById);
 router.put('/pets/:idpet', updatePet);
 router.delete('/pets/:idpet', deletePet);
+router.get('/species', getSpecies);
+router.get('/races/:idspecies', getRacesBySpecies);
 router.get('/images/:idpet', searchImages);
 router.post('/upload/:idpet', uploadImages.single('image'), async (req, res) => {
     try {

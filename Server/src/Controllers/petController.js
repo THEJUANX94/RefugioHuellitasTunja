@@ -3,6 +3,8 @@ const { CLOUDINARY_URL } = require('../config');
 const { uploadForm } = require('./FormsController');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 cloudinary.config({
     cloud_name: 'dg639pvia',
@@ -12,15 +14,33 @@ cloudinary.config({
 
 const createPet = async (req, res) => {
     const { idspecies, name, birthday, race, details } = req.body;
-    pool.query(`SELECT * FROM species WHERE idspecies = '${idspecies}'`, (err, result) => {
-        if (err) return res.status(404).json({ message: 'Error, no se pudo encontrar la especie indicada.' })
-        pool.query(`INSERT INTO pets (idspecies, name, birthday, race, details) VALUES ('${idspecies}', '${name}', 
-        '${birthday}', '${race}', '${details}')`, (err, result) => {
-        if (err) return res.status(409).json({ message: 'No se pudo crear la mascota.' })
-        res.status(201).json({ message: "Mascota creada correctamente." })
-        })
+
+    if (!idspecies || !name || !birthday || !race || !details) {
+        return res.status(400).json({ message: 'Missing required fields.' });
+    }
+
+    pool.query(`SELECT * FROM species WHERE idspecies = $1`, [idspecies], (err, result) => {
+        if (err || result.rowCount === 0) {
+            return res.status(404).json({ message: 'Error, no se pudo encontrar la especie indicada.' });
+        }
+
+        pool.query(
+            `INSERT INTO pets (idspecies, name, birthday, race, details) 
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING idpet`,
+            [idspecies, name, birthday, race, details],
+            (err, result) => {
+                if (err) {
+                    console.error("Error inserting pet:", err);
+                    return res.status(409).json({ message: 'No se pudo crear la mascota.' });
+                }
+                res.status(201).json({ message: "Mascota creada correctamente.", idPet: result.rows[0].idpet });
+            }
+        );
     });
-}
+};
+
+
 
 const getPets = async (req, res) => {
     pool.query('SELECT * FROM Pets', (err, results) => {
@@ -65,13 +85,21 @@ const deletePet = async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/'); // Temporary folder to store files before upload
+        const uploadDir = path.join(__dirname, 'uploads'); // Ruta absoluta al directorio 'uploads'
+
+        // Verificar si el directorio existe, si no, crearlo
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+            console.log(`Directory ${uploadDir} created successfully.`);
+        }
+
+        cb(null, uploadDir); // Usar el directorio para guardar los archivos
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname); // Unique filename
+        cb(null, Date.now() + '-' + file.originalname); // Nombre único para el archivo
     }
-  });
-  
+});
+
 const uploadImages = multer({ storage });
 
 const newImage = async (req, res, link) => {
@@ -87,12 +115,36 @@ const searchImages = async(req, res) => {
     });
 }
 
+const getSpecies = async (req, res) => {
+    pool.query('SELECT idspecies, name FROM Species', (err, results) => {
+        if (err) return res.status(500).json({ message: 'Error fetching species.' });
+        res.status(200).json(results.rows);
+    });
+};
+
+const getRacesBySpecies = async (req, res) => {
+    const { idspecies } = req.params;
+    pool.query(
+        'SELECT DISTINCT race FROM Pets WHERE idspecies = $1',
+        [idspecies],
+        (err, results) => {
+            if (err) {
+                console.error("Error fetching races by species:", err);
+                return res.status(500).json({ message: 'Error fetching races.' });
+            }
+            res.status(200).json(results.rows);
+        }
+    );
+};
+
 module.exports = {
     createPet,
     getPets,
     getPetsById,
     updatePet,
     deletePet,
+    getSpecies,
+    getRacesBySpecies,
     uploadImages,
     newImage,
     searchImages

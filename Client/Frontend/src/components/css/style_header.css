@@ -1,53 +1,112 @@
+/* Contenedor del header */
 .header {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 300;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5rem;
-    background-color: #ffffff;
+    padding: 0 5rem;
+    background-color: #4697B8;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    height: 72px;
 }
 
+/* Logo */
 .logo {
     display: flex;
     align-items: center;
 }
 
-.logo a{
-    position: absolute;
-    top: 0;
-    padding: 3px 0;
-}
-
 .logo img {
-    height: 50px;
-    width: 130px;
+    height: 65px;
+    width: 165px;
     object-fit: cover;
     margin-right: 0.5rem;
     overflow: hidden;
 }
 
+/* Navegación */
 .nav {
     display: flex;
     gap: 1.5rem;
+    height: 100%;
 }
 
-.nav a {
-    color: #000;
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.nav-item a {
+    color: #ffffff;
     text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-.nav a:hover {
-    color: #ECB176;
+.nav-item a:hover {
+    color: #213547;
 }
 
-.nav .active {
-    color: #ECB176;
+.nav-item .active {
+    background-color: #0A668B;
+    color: #ffffff;
     font-weight: bold;
-    border-bottom: 2px solid #ECB176;
 }
 
+/* Contenedor de los íconos */
+.icon-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espacio entre íconos */
+}
+
+/* Estilo para los íconos */
+.icon {
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.2); /* Efecto de agrandamiento */
+    color: #FFDD00; /* Cambia el color al pasar el cursor */
+}
+
+/* Estilo para el nombre de usuario */
 .user-info {
     display: flex;
     align-items: center;
     gap: 7px;
+    color: white;
+}
+
+.user-info:hover {
+    cursor: pointer;
+}
+
+/* Botón de iniciar sesión */
+.buttom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginButton {
+    padding: 0.5rem 1rem;
+    background-color: #213547;
+    color: white;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+    background-color: #0A668B;
 }

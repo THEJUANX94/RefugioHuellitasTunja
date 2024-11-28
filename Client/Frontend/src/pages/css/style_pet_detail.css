@@ -1,0 +1,139 @@
+.pet-detail-container {
+    margin: 0 5rem;
+    padding: 2rem 0;
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.back-button-container {
+    box-sizing: border-box;
+    width: 100%;
+
+    margin-bottom: 1rem;
+
+}
+
+.back-button {
+    background-color: #0A668B;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #213547;
+}
+
+.back-icon {
+    font-size: 1.2rem;
+}
+
+.pet-detail-content {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.pet-image-section {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-pet-image {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    margin-bottom: 1rem;
+}
+
+.pet-gallery {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.gallery-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.gallery-image:hover {
+    transform: scale(1.1);
+    border-color: #0072A8;
+}
+
+.pet-info-section {
+    flex: 1 1 45%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0 2rem 2rem 2rem;
+}
+
+.pet-info-section h3 {
+    margin: 0;
+    color: #FD7E14;
+    font-size: 24px;
+}
+
+.pet-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FF8C00;
+    margin-bottom: 0.5rem;
+}
+
+.pet-detail {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.pet-info-section p {
+    margin-top: 0;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.form-button {
+    background-color: #0A668B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.form-button:hover {
+    background-color: #213547;
+}

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaUserCircle, FaBell, FaShoppingCart } from 'react-icons/fa'; // Agregamos los íconos
 import './css/style_header.css';
-import logo from './img/Logo.png'
+import logo from './img/Logo2.png';
 
 const Header = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const auth = localStorage.getItem('isAuthenticated') === 'true';
@@ -19,27 +21,56 @@ const Header = () => {
         localStorage.removeItem('username');
         setIsAuthenticated(false);
         setUsername('');
+        navigate('/'); // Redirige al inicio
+    };
+
+    const goToProfile = () => {
+        navigate('/profile');
+    };
+
+    const goToCart = () => {
+        navigate('/cart');
+    };
+
+    const goToNotifications = () => {
+        navigate('/notifications');
     };
 
     return (
         <header className="header">
             <div className="logo">
-                <a href="/"><img src={logo} alt="Refugio Huellitas Tunja" /></a>
+                <NavLink to="/"><img src={logo} alt="Refugio Huellitas Tunja" /></NavLink>
             </div>
             <nav className="nav">
-                <a href="/">Inicio</a>
-                <a href="/about">Sobre Nosotros</a>
-                <a href="/adopt">Adopta</a>
-                <a href="/store">Tienda</a>
-                <a href="/donate">Dona</a>
-                {isAuthenticated ? (
-                    <div className="user-info" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                        <FaUserCircle size={24} />
-                        <span>{username}</span>
-                    </div>
-                ) : (
-                    <a href="/login">Iniciar Sesión</a>
-                )}
+                <div className="nav-item">
+                    <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Inicio</NavLink>
+                </div>
+                <div className="nav-item">
+                    <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>Sobre Nosotros</NavLink>
+                </div>
+                <div className="nav-item">
+                    <NavLink to="/adopt" className={({ isActive }) => isActive ? 'active' : ''}>Adopta</NavLink>
+                </div>
+                <div className="nav-item">
+                    <NavLink to="/store" className={({ isActive }) => isActive ? 'active' : ''}>Tienda</NavLink>
+                </div>
+                <div className="nav-item">
+                    <NavLink to="/donate" className={({ isActive }) => isActive ? 'active' : ''}>Dona</NavLink>
+                </div>
+                <div className="icon-container">
+                    <FaBell className="icon" onClick={goToNotifications} />
+                    <FaShoppingCart className="icon" onClick={goToCart} />
+                    {isAuthenticated ? (
+                        <div className="user-info" onClick={goToProfile} style={{ cursor: 'pointer' }}>
+                            <FaUserCircle size={24} />
+                            <span>{username}</span>
+                        </div>
+                    ) : (
+                        <div className="buttom">
+                            <NavLink to="/login" className="loginButton">Iniciar Sesión</NavLink>
+                        </div>
+                    )}
+                </div>
             </nav>
         </header>
     );

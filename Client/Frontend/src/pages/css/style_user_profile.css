@@ -1,0 +1,144 @@
+/* Contenedor principal */
+.user-profile-container {
+    font-family: 'Inter', sans-serif;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #0072A8;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Grid de dos columnas */
+.user-profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+/* Columna izquierda */
+.user-profile-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.user-avatar-card {
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+    font-size: 4rem;
+    color: #0072A8;
+    margin-bottom: 1rem;
+}
+
+/* Botones de la izquierda */
+.user-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espaciado entre botones */
+}
+
+.user-actions .full-width {
+    background-color: #0072A8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%; /* Asegura que ocupen todo el ancho */
+    text-align: center;
+}
+
+.user-actions .full-width:hover {
+    background-color: #005f86;
+}
+
+/* Columna derecha */
+.user-profile-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Detalles de usuario */
+.detail-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.detail-card button {
+    background-color: #FF8C00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.detail-card button:hover {
+    background-color: #E67600;
+}
+
+/* Bordes */
+.bordered {
+    border: 1px solid #0072A8; /* Agrega bordes azules */
+}
+
+/* Botones generales en la columna derecha */
+.user-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.user-buttons button {
+    background-color: #0072A8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 0.5rem;
+}
+
+.user-buttons button:hover {
+    background-color: #005f86;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .user-profile-grid {
+        grid-template-columns: 1fr; /* Cambia a una columna en pantallas pequeñas */
+    }
+    .user-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

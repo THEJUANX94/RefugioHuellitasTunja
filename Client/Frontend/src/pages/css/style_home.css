@@ -1,0 +1,152 @@
+.home-container {
+    font-family: 'Inter', sans-serif;
+    color: #213547;
+    line-height: 1.5;
+    padding: 0 5rem;
+}
+
+/* Hero Section */
+.home-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.home-hero-content {
+    flex: 1;
+}
+
+.home-hero-image {
+    flex: 1;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Servicios */
+.home-services {
+    margin-bottom: 3rem;
+}
+
+.home-services-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.service-card {
+    flex: 1;
+    background: #F3F4F6;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Tienda */
+.home-store {
+    margin-bottom: 3rem;
+}
+
+.home-store-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Mascotas */
+.home-pets {
+    margin-bottom: 3rem;
+}
+
+.home-pets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.pet-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.pet-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+
+/* Donaciones */
+.home-support {
+    margin-bottom: 3rem;
+}
+
+.home-support-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #4697B8;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    background-color: #005f86;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Tarjetas de servicios como botones */
+.service-card {
+    flex: 1;
+    background: #F3F4F6;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent; /* Sin borde por defecto */
+}
+
+.service-card img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px); /* Animación de subida */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    border: 2px solid #FF7043; /* Borde llamativo al hacer hover */
+}
+
+.service-card:hover img {
+    transform: scale(1.1); /* Ampliar ligeramente la imagen */
+}

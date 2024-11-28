@@ -24,11 +24,11 @@ CREATE TABLE Species
 CREATE TABLE Pets 
 (
 	idPet uuid DEFAULT gen_random_uuid(),
-	idspecies uuid DEFAULT gen_random_uuid(),
+	idspecies uuid,
 	name varchar(50) NOT NULL,
 	birthday DATE NOT NULL,
 	race VARCHAR(50) NOT NULL,
-	details VARCHAR(255) NOT NULL
+	details VARCHAR(1000) NOT NULL
 );
 
 

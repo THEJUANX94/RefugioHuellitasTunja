@@ -1,10 +1,9 @@
-/* src/components/Footer.css */
 .footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 1rem 5rem;
-    background-color: #ECB176;
+    background-color: #4697B8;
     color: #ffff;
     font-size: 0.875rem;
 }
@@ -25,7 +24,7 @@
 }
 
 .footer-section h3 {
-    font-size: 1rem;
+    font-size: 18px;
     margin-bottom: 0.5rem;
     color: #213547;
     position: relative;
