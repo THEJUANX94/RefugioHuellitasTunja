@@ -22,6 +22,12 @@ const getProductByidproduct = async (req, res) => {
     res.json(response.rows);
 }
 
+const getProductByidCategory = async (req, res) => {
+    const idproduct = req.params.category_id
+    const response = await pool.query('SELECT * FROM products WHERE category_id = $1' , [category_id]);
+    res.json(response.rows);
+}
+
 const createProduct = async (req, res) => {
     const { name, unitmeasure, description, category_id, price } = req.body;
     const response = await pool.query('INSERT INTO producto (name, unitmeasure, description, category_id, price) VALUES($1, $2, $3, $4, $5)', [name, unitmeasure, description, category_id, price]);
@@ -108,6 +114,7 @@ module.exports = {
     inventoryPerProduct,
     newImage,
     searchImages,
-    uploadImages
+    uploadImages,
+    getProductByidCategory
 }
 

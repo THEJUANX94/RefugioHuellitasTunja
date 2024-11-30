@@ -2,10 +2,11 @@ const { Router } = require('express');
 const router = Router();
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
-const { getProducts, createProduct, getProductByidproduct, deleteProduct, updateProduct , inventoryPerProduct, searchImages, newImage , uploadImages} = require('../Controllers/productsController')
+const { getProducts, createProduct, getProductByidproduct, deleteProduct, updateProduct , inventoryPerProduct, searchImages, newImage , uploadImages, getProductByidCategory} = require('../Controllers/productsController')
 
 router.get('/producto', getProducts);
 router.get('/producto/:idproducto', getProductByidproduct);
+router.get('producto/:category_id', getProductByidCategory)
 router.post('/producto', createProduct)
 router.delete('/producto/:idproducto', deleteProduct)
 router.put('/producto/:idproducto', updateProduct)
