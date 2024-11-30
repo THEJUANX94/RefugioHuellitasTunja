@@ -23,13 +23,13 @@ const getProductByidproduct = async (req, res) => {
 }
 
 const createProduct = async (req, res) => {
-    const { name, unitmeasure } = req.body;
-    const response = await pool.query('INSERT INTO producto (name, unitmeasure) VALUES($1, $2)', [name, unitmeasure]);
+    const { name, unitmeasure, description, category_id, price } = req.body;
+    const response = await pool.query('INSERT INTO producto (name, unitmeasure, description, category_id, price) VALUES($1, $2, $3, $4, $5)', [name, unitmeasure, description, category_id, price]);
     console.log(response);
     res.json({
         message: 'producto añadido correctamente',
         body: {
-            producto: {name, unitmeasure}
+            producto: {name, unitmeasure, description, category_id, price}
         }
     })
 }
@@ -43,9 +43,9 @@ const deleteProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     const idproduct = req.params.idproduct
-    const {name, unitmeasure} = req.body
-    const response = await pool.query('UPDATE lote SET name = $1, unitmeasure = $2 WHERE idproduct = $3', [
-        name, unitmeasure, idproduct
+    const {name, unitmeasure, description, category_id, price} = req.body
+    const response = await pool.query('UPDATE lote SET name = $1, unitmeasure = $2, description = $3, category_id = $4, price = $5 WHERE idproduct = $6', [
+        name, unitmeasure, description, category_id, price, idproduct
     ])
     console.log(response);
     res.send('Producto actualizado')

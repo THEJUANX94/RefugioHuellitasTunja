@@ -12,13 +12,13 @@ const getBillByID = async (req, res) => {
 }
 
 const createBill = async (req, res) => {
-    const { date, client, payment_method} = req.body;
-    const response = await pool.query('INSERT INTO bill (date, client, payment_method) VALUES($1, $2, $3, $4)', [date, client, payment_method]);
+    const { date, client, payment_method, total_amount} = req.body;
+    const response = await pool.query('INSERT INTO bill (date, client, payment_method, total_amount) VALUES($1, $2, $3, $4, $5)', [date, client, payment_method, total_amount]);
     console.log(response);
     res.json({
         message: 'Factura añadida correctamente',
         body: {
-            bill: {date, client, payment_method}
+            bill: {date, client, payment_method, total_amount}
         }
     })
 }

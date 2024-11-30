@@ -18,13 +18,13 @@ const getBill_DetailbyProduct = async (req, res) => {
 }
 
 const createBill_Detail = async (req, res) => {
-    const { idbill, idproduct, quantity, iva} = req.body;
-    const response = await pool.query('INSERT INTO bill_detail (idbill, idproduct, quantity, iva) VALUES($1, $2, $3, $4)', [idbill, idproduct, quantity, iva]);
+    const { idbill, idproduct, quantity, unit_price, total_price} = req.body;
+    const response = await pool.query('INSERT INTO bill_detail (idbill, idproduct, quantity, unit_price, total_price) VALUES($1, $2, $3, $4, $5)', [idbill, idproduct, quantity, unit_price, total_price]);
     console.log(response);
     res.json({
         message: 'detalle de factura añadido correctamente',
         body: {
-            detalle_factura: {idbill, idproduct, quantity, iva}
+            detalle_factura: {idbill, idproduct, quantity, unit_price, total_price}
         }
     })
 }
@@ -40,9 +40,9 @@ const deleteBill_Detail = async (req, res) => {
 const updateBill_Detail = async (req, res) => {
     const idproduct = req.params.idproduct
     const idbill = req.params.idbill
-    const {quantity, iva} = req.body
-    const response = await pool.query('UPDATE bill_detail SET quantity = $1, iva = $2 WHERE (idproduct = $3 and idbill = $4)', [
-        quantity, iva, idproduct, idbill
+    const {quantity, unit_price} = req.body
+    const response = await pool.query('UPDATE bill_detail SET quantity = $1, unit_price = $2 WHERE (idproduct = $3 and idbill = $4)', [
+        quantity, unit_price, idproduct, idbill
     ])
     console.log(response);
     res.send('detalle de factura actualizado')

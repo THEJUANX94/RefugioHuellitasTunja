@@ -18,13 +18,13 @@ const getProducts_lotbylot = async (req, res) => {
 }
 
 const createProducts_lot = async (req, res) => {
-    const { idlot, idproduct, quantity, expiredate} = req.body;
-    const response = await pool.query('INSERT INTO products_lot (idlot, idproduct, quantity, expiredate) VALUES($1, $2, $3, $4)', [idlot, idproduct, quantity, expiredate]);
+    const { idlot, idproduct, quantity, expiredate, purchase_price} = req.body;
+    const response = await pool.query('INSERT INTO products_lot (idlot, idproduct, quantity, expiredate, purchase_price) VALUES($1, $2, $3, $4, $5)', [idlot, idproduct, quantity, expiredate,purchase_price]);
     console.log(response);
     res.json({
         message: 'producto por lote añadido correctamente',
         body: {
-            producto_lote: {idlot, idproduct, quantity, expiredate}
+            producto_lote: {idlot, idproduct, quantity, expiredate, purchase_price}
         }
     })
 }
