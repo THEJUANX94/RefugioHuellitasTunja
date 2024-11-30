@@ -24,11 +24,11 @@ CREATE TABLE Species
 CREATE TABLE Pets 
 (
 	idPet uuid DEFAULT gen_random_uuid(),
-	idspecies uuid,
+	idspecies uuid DEFAULT gen_random_uuid(),
 	name varchar(50) NOT NULL,
 	birthday DATE NOT NULL,
 	race VARCHAR(50) NOT NULL,
-	details VARCHAR(1000) NOT NULL
+	details VARCHAR(255) NOT NULL
 );
 
 
@@ -57,20 +57,20 @@ CREATE TABLE Adoptions
 
 CREATE TABLE products
 (
-	idproduct INTEGER NOT NULL,
+	idproduct uuid DEFAULT gen_random_uuid(),
 	name VARCHAR (255) NOT NULL,
 	unitmesure VARCHAR (255) NOT NULL
 );
 
 CREATE TABLE lot
 (
-	idlot INTEGER NOT NULL,
+	idlot uuid DEFAULT gen_random_uuid(),
 	registerdate DATE NOT NULL
 );
 
 CREATE TABLE bill 
 (
-	idbill INTEGER NOT NULL,
+	idbill uuid DEFAULT gen_random_uuid(),
 	date DATE NOT NULL,
 	client VARCHAR(11) NOT NULL,
 	payment_method CHAR NOT NULL
@@ -79,19 +79,33 @@ CREATE TABLE bill
 
 CREATE TABLE products_lot
 (
-	idproduct INTEGER NOT NULL,
-	idlot INTEGER NOT NULL,
+	idproduct uuid DEFAULT gen_random_uuid(),
+	idlot uuid DEFAULT gen_random_uuid(),
 	quantity INTEGER NOT NULL,
 	expiredate DATE
 );
 
 CREATE TABLE bill_detail
 (
-	idbill INTEGER NOT NULL,
-	idproduct INTEGER NOT NULL,
+	idbill uuid DEFAULT gen_random_uuid(),
+	idproduct uuid DEFAULT gen_random_uuid(),
 	quantity INTEGER NOT NULL,
 	IVA FLOAT
 );
+
+CREATE TABLE ProductImages
+(
+	idproduct uuid DEFAULT gen_random_uuid(),
+	linkImage VARCHAR(255)
+);
+
+CREATE TABLE categories 
+(
+    idcategory uuid DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL
+);
+
+
 
 
 ALTER TABLE Login 
@@ -131,7 +145,7 @@ ALTER TABLE lot
 	
 ALTER TABLE products_lot 
 	ADD CONSTRAINT prodlot_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct),
-	ADD CONSTRAINT prodlot_idlot_FK FOREIGN KEY (idlot) REFERENCES Lote(idlot),
+	ADD CONSTRAINT prodlot_idlot_FK FOREIGN KEY (idlot) REFERENCES Lot(idlot),
 	ADD CONSTRAINT prodlot_idlotidprod_PK PRIMARY KEY (idlot, idproduct);
 
 	
@@ -141,7 +155,12 @@ ALTER TABLE bill
 	ADD CONSTRAINT fac_tipag_CK CHECK (payment_method in ('N', 'D', 'C', 'E'));
 	
 ALTER TABLE bill_detail
-	ADD CONSTRAINT detfac_idfac_FK FOREIGN KEY (idbill) REFERENCES Factura(idbill),
-	ADD CONSTRAINT detfac_idprod_FK FOREIGN KEY (idproduct) REFERENCES Producto(idproduct),
+	ADD CONSTRAINT detfac_idfac_FK FOREIGN KEY (idbill) REFERENCES bill(idbill),
+	ADD CONSTRAINT detfac_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct),
 	ADD CONSTRAINT detfac_idfacidprod_PK PRIMARY KEY (idbill, idproduct);
+	
+ALTER TABLE ProductImages 
+ADD CONSTRAINT img_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct):
 
+ALTER TABLE categories
+    ADD CONSTRAINT cat_idcat_PK PRIMARY KEY (idcategory);
