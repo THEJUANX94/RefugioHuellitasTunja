@@ -1,6 +1,7 @@
+// Header.js
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaUserCircle, FaBell, FaShoppingCart } from 'react-icons/fa'; // Agregamos los íconos
+import { FaUserCircle, FaShoppingCart } from 'react-icons/fa'; // Eliminamos FaBell
 import './css/style_header.css';
 import logo from './img/Logo2.png';
 
@@ -32,10 +33,6 @@ const Header = () => {
         navigate('/cart');
     };
 
-    const goToNotifications = () => {
-        navigate('/notifications');
-    };
-
     return (
         <header className="header">
             <div className="logo">
@@ -58,7 +55,6 @@ const Header = () => {
                     <NavLink to="/donate" className={({ isActive }) => isActive ? 'active' : ''}>Dona</NavLink>
                 </div>
                 <div className="icon-container">
-                    <FaBell className="icon" onClick={goToNotifications} />
                     <FaShoppingCart className="icon" onClick={goToCart} />
                     {isAuthenticated ? (
                         <div className="user-info" onClick={goToProfile} style={{ cursor: 'pointer' }}>

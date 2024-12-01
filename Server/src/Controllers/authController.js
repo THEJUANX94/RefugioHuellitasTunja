@@ -19,23 +19,25 @@ const login = async (req, res) => {
                 if (err) return console.error('Error querying database:', err);
 
                 const username = userResults.rows[0].login;
+                const type = userResults.rows[0].type
+
                 if (userResults.rows[0].type === 'A') {
                     const token = jwt.sign({ userId: 1, role: 'admin' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 1 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente', username });
+                    res.json({ message: 'Autenticado correctamente', username, type});
                 }
                 else if (userResults.rows[0].type === 'C') {
                     const token = jwt.sign({ userId: 2, role: 'Client' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 2 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente', username });
+                    res.json({ message: 'Autenticado correctamente', username, type});
                 }
                 else if (userResults.rows[0].type === 'E') {
                     const token = jwt.sign({ userId: 3, role: 'Employee' }, 'secretKey', { expiresIn: '1h' });
                     res.cookie('token', token, { httpOnly: true });
                     res.cookie('session', { roleId: 3 }, { httpOnly: true });
-                    res.json({ message: 'Autenticado correctamente', username });
+                    res.json({ message: 'Autenticado correctamente', username, type});
                 }
             });
         });

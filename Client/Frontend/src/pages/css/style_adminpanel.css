@@ -150,3 +150,28 @@
     background-color: #2ecc71;
     color: #fff;
   }
+
+  .image-preview-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pet-name-adopt {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.pet-name-adopt:hover {
+  color: #ff3b3b;
+  font-weight: 400;
+
+}

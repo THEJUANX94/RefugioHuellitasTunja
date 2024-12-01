@@ -28,7 +28,15 @@ const Login = () => {
                 console.log("Login successful!");
                 localStorage.setItem('isAuthenticated', 'true');
                 localStorage.setItem('username', data.username);
-                navigate('/');
+
+                // Verificar el rol del usuario
+                if (data.type === 'A') {
+                    navigate('/admin-panel'); // Redirigir a la página de admin si el rol es admin
+                } else if (data.type === 'C') {
+                    navigate('/'); // Redirigir al cliente a la página principal
+                } else if (data.type === 'E') {
+                    navigate('/admin-panel');
+                }
             } else {
                 setError(data.message || 'Error en el inicio de sesión');
             }

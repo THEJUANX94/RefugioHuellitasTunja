@@ -40,8 +40,6 @@ const createPet = async (req, res) => {
     });
 };
 
-
-
 const getPets = async (req, res) => {
     pool.query('SELECT * FROM Pets', (err, results) => {
         if (err) return res.status(404).json({ message: 'Error, no se pudieron encontrar mascotas.' });
@@ -51,7 +49,7 @@ const getPets = async (req, res) => {
 
 const getPetsById = async (req, res) => {
     const idpet = req.params.idpet;
-    pool.query(`SELECT FROM pets WHERE idpet = '${idpet}'`, (err, results) => {
+    pool.query(`SELECT * FROM pets WHERE idpet = '${idpet}'`, (err, results) => {
         if (err) return res.status(404).json({ message: 'Error, no se pudo encontrar la mascota indicada.' });
         res.status(200).json(results.rows);
     });
@@ -77,11 +75,23 @@ const updatePet = async (req, res) => {
 
 const deletePet = async (req, res) => {
     const idpet = req.params.idpet;
-    pool.query(`DELETE FROM pets WHERE idpet = '${idpet}'`, (err) => {
-        if (err) return res.status(404).json({ message: 'Error, no se pudo eliminar la mascota indicada.' })
-        res.status(204).json({ message: "Mascota eliminada correctamente." })
+
+    // Primero, eliminar las imágenes asociadas a la mascota
+    pool.query(`DELETE FROM images WHERE idpet = '${idpet}'`, (err) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error, no se pudieron eliminar las imágenes asociadas a la mascota indicada.' });
+        }
+
+        // Después, eliminar la mascota
+        pool.query(`DELETE FROM pets WHERE idpet = '${idpet}'`, (err) => {
+            if (err) {
+                return res.status(404).json({ message: 'Error, no se pudo eliminar la mascota indicada.' });
+            }
+            res.status(204).json({ message: "Mascota eliminada correctamente." });
+        });
     });
-}
+};
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -115,11 +125,51 @@ const searchImages = async(req, res) => {
     });
 }
 
+const deleteImage = async (req, res) => {
+    const idpet = req.params.idpet;
+    try {
+                // Eliminar la referencia en la base de datos
+        pool.query(`DELETE FROM images WHERE idpet = '${idpet}'`, (dbErr) => {
+            if (dbErr) {
+                console.error('Error deleting image record from database:', dbErr);
+                    return res.status(500).json({ message: 'Failed to delete image record from database.' });
+                }
+                res.status(200).json({ message: 'Image successfully deleted.' });
+            });
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        res.status(500).json({ message: 'An unexpected error occurred.' });
+    }
+};
+
+
 const getSpecies = async (req, res) => {
     pool.query('SELECT idspecies, name FROM Species', (err, results) => {
         if (err) return res.status(500).json({ message: 'Error fetching species.' });
         res.status(200).json(results.rows);
     });
+};
+
+const addSpecies = async (req, res) => {
+    const { name } = req.body;
+    if (!name) {
+        return res.status(400).json({ message: 'El nombre de la especie es obligatorio.' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO species (name) VALUES ($1) RETURNING idspecies, name`,
+            [name]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(500).json({ message: 'No se pudo agregar la especie.' });
+        }
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error al agregar una nueva especie:', err);
+        res.status(500).json({ message: 'Error al agregar una nueva especie.' });
+    }
 };
 
 const getRacesBySpecies = async (req, res) => {
@@ -137,6 +187,41 @@ const getRacesBySpecies = async (req, res) => {
     );
 };
 
+const getAvailablePets = async (req, res) => {
+    try {
+        const query = `
+            SELECT p.*
+            FROM pets p
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM adoptions a
+                WHERE a.idpet = p.idpet AND a.state = 'A'
+            )
+        `;
+
+        const result = await pool.query(query);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error("Error obteniendo las mascotas disponibles:", error);
+        res.status(500).json({ message: "Error al obtener las mascotas disponibles." });
+    }
+};
+
+const getSpeciesName = async (req, res) => {
+    const { idspecies } = req.params;
+    try {
+        const result = await pool.query('SELECT name FROM species WHERE idspecies = $1', [idspecies]);
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]); // Devuelve el nombre de la especie
+        } else {
+            res.status(404).json({ message: 'Species not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching species:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 module.exports = {
     createPet,
     getPets,
@@ -144,8 +229,12 @@ module.exports = {
     updatePet,
     deletePet,
     getSpecies,
+    addSpecies,
     getRacesBySpecies,
+    getAvailablePets,
+    getSpeciesName,
     uploadImages,
     newImage,
-    searchImages
+    searchImages,
+    deleteImage
 }

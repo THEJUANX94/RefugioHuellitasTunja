@@ -1,6 +1,12 @@
 // backend/routes/userRoutes.js
 const express = require('express');
-const { createPet, getPets, getPetsById, updatePet, deletePet, uploadImages, newImage, searchImages, getSpecies, getRacesBySpecies} = require('../Controllers/petController.js');
+const { createPet, getPets,
+  getPetsById, updatePet, 
+  deletePet, uploadImages, 
+  newImage, searchImages, 
+  getSpecies, addSpecies, 
+  getRacesBySpecies,getAvailablePets, 
+  deleteImage, getSpeciesName} = require('../Controllers/petController.js');
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
@@ -11,8 +17,12 @@ router.get('/pets/:idpet', getPetsById);
 router.put('/pets/:idpet', updatePet);
 router.delete('/pets/:idpet', deletePet);
 router.get('/species', getSpecies);
+router.get('/species/:idspecies', getSpeciesName);
+router.post('/species', addSpecies);
 router.get('/races/:idspecies', getRacesBySpecies);
+router.get('/petsavailable', getAvailablePets);
 router.get('/images/:idpet', searchImages);
+router.delete('/delete-image/:idpet', deleteImage);
 router.post('/upload/:idpet', uploadImages.single('image'), async (req, res) => {
     try {
       // Upload the file to Cloudinary using the uploaded file path

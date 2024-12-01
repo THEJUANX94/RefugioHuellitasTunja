@@ -21,6 +21,8 @@ app.use(require('./Routes/billDetail.Routes.js'))
 app.use(require('./Routes/lot.Routes.js'))
 app.use(require('./Routes/products_lot.Routes.js'))
 app.use(require('./Routes/products.Routes.js'))
+app.use(require('./Routes/products.Routes.js'))
+app.use(require('./Routes/adoptions.Routes.js'))
 
 
 app.listen(4000, () => {console.log("Server started on port 4000")})

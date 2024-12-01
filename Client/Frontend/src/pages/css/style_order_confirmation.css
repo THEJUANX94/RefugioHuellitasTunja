@@ -1,0 +1,70 @@
+/* Contenedor principal */
+.order-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Título */
+.order-confirmation-container h2 {
+    font-size: 2.5rem;
+    color: #28a745; /* Verde para el éxito */
+    margin-bottom: 20px;
+}
+
+/* Mensaje de agradecimiento */
+.order-confirmation-container p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Contenedor de los botones */
+.confirmation-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* Botones */
+.confirmation-buttons button {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirmation-buttons button:hover {
+    background-color: #218838; /* Cambia de color al pasar el cursor */
+}
+
+.confirmation-buttons button:first-child {
+    background-color: #007bff;
+    color: white;
+}
+
+.confirmation-buttons button:last-child {
+    background-color: #ffc107;
+    color: white;
+}
+
+/* Imagen de agradecimiento */
+.thank-you-img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Icono de Checkmark */
+.checkmark-icon {
+    font-size: 50px;
+    color: #28a745;
+    margin-bottom: 20px;
+}

@@ -5,7 +5,7 @@ const { getBillDetail, createBill_Detail, getBill_DetailbyBill, getBill_Detailby
 
 router.get('/detallefactura', getBillDetail);
 router.get('/detallefactura/:idfactura', getBill_DetailbyBill);
-router.get('/detallefactura/:idproducto', getBill_DetailbyProduct);
+router.get('/detallefacturaproduct/:idproducto', getBill_DetailbyProduct);
 router.post('/detallefactura', createBill_Detail)
 router.delete('/detallefactura/:idproducto:idfactura', deleteBill_Detail)
 router.put('/detallefactura/:idproducto:idfactura', updateBill_Detail)

@@ -59,7 +59,8 @@ CREATE TABLE products
 (
 	idproduct uuid DEFAULT gen_random_uuid(),
 	name VARCHAR (255) NOT NULL,
-	unitmesure VARCHAR (255) NOT NULL,
+	unitmeasure VARCHAR (255) NOT NULL,
+	quantity_per_unit DECIMAL(10) NOT NULL DEFAULT 1,
 	description TEXT,
 	category_id uuid,
 	price DECIMAL(10, 2) NOT NULL 
@@ -68,12 +69,12 @@ CREATE TABLE products
 CREATE TABLE lot
 (
 	idlot uuid DEFAULT gen_random_uuid(),
-	registerdate DATE NOT NULL
+	registerdate TIMESTAMP NOT NULL
 );
 
 CREATE TABLE bill (
     idbill UUID DEFAULT gen_random_uuid() NOT NULL,
-    date DATE NOT NULL,
+    date TIMESTAMP NOT NULL,
     client VARCHAR (255) NOT NULL,
     payment_method VARCHAR(50) NOT NULL,
     total_amount DECIMAL(10, 2) DEFAULT 0
@@ -98,6 +99,11 @@ CREATE TABLE bill_detail (
     total_price DECIMAL(10, 2) GENERATED ALWAYS AS (quantity * unit_price) STORED
 );
 
+CREATE TABLE ProductImages
+(
+	idproduct  INTEGER NOT NULL,
+	linkImage VARCHAR(255)
+);
 
 CREATE TABLE ProductImages
 (
@@ -110,8 +116,6 @@ CREATE TABLE categories
     idcategory uuid DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL
 );
-
-
 
 
 ALTER TABLE Login 
@@ -133,7 +137,7 @@ ALTER TABLE Images
 	
 ALTER TABLE Forms
 	ADD CONSTRAINT frm_idform_PK PRIMARY KEY (idform),
-	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login)
+	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login),
 	
 ALTER TABLE Adoptions
 	ADD CONSTRAINT adp_state_CK CHECK ("state" in ('A', 'D', 'W')),
@@ -144,7 +148,7 @@ ALTER TABLE Adoptions
 	
 ALTER TABLE products
     ADD CONSTRAINT prod_idprod_PK PRIMARY KEY (idproduct),
-    ADD CONSTRAINT prod_unitmeasure_CK CHECK (unitmesure IN ('Kg', 'g', 'l', 'ml', 'U')),
+    ADD CONSTRAINT prod_unitmeasure_CK CHECK (unitmeasure IN ('Kg', 'g', 'l', 'ml', 'U')),
     ADD CONSTRAINT prod_category_FK FOREIGN KEY (category_id) REFERENCES categories (idcategory) ON DELETE SET NULL;
 
 	
@@ -169,7 +173,9 @@ ALTER TABLE bill_detail
 	ADD CONSTRAINT detfac_idfacidprod_PK PRIMARY KEY (idbill, idproduct);
 	
 ALTER TABLE ProductImages 
-ADD CONSTRAINT img_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct):
+ADD CONSTRAINT img_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idproduct);
 
 ALTER TABLE categories
     ADD CONSTRAINT cat_idcat_PK PRIMARY KEY (idcategory);
+
+
