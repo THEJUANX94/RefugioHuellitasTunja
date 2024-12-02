@@ -12,39 +12,16 @@ cloudinary.config({
 });
 
 const getProducts = async (req, res) => {
-    try {
-        const query = `
-            SELECT 
-                p.idproduct, 
-                p.name, 
-                p.unitmeasure, 
-                p.quantity_per_unit, 
-                p.description, 
-                p.price, 
-                p.category_id, 
-                c.name AS category_name 
-            FROM 
-                products p
-            LEFT JOIN 
-                categories c ON p.category_id = c.idcategory;
-        `;
-        const result = await pool.query(query);
-        res.status(200).json(result.rows);
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ error: 'Error fetching products.' });
-    }
+    const response = await pool.query('SELECT * FROM products');
+    res.status(200).json(response.rows);
 };
 
 
 const getProductByidproduct = async (req, res) => {
-    const idproducto = req.params.idproducto;
-    const response = await pool.query(`SELECT p.*, c.name AS category_name
-             FROM products p
-             LEFT JOIN categories c ON p.category_id = c.idcategory
-             WHERE p.idproduct = $1`, [idproducto]);
+    const idproduct = req.params.idproduct
+    const response = await pool.query('SELECT * FROM producst WHERE idproduct = $1' , [idproduct]);
     res.json(response.rows);
-};
+}
 
 const getProductByidCategory = async (req, res) => {
     const category_id = req.params.category_id;
