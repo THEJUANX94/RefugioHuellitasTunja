@@ -1,16 +1,24 @@
 .about-us {
-    padding: 2rem 5rem;
     font-family: 'Inter', sans-serif;
 }
 
 .about-us-section {
-    margin-bottom: 3rem;
+    margin: 0 5rem 3rem 5rem;
+}
+
+.about-us-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 2rem ; 
 }
 
 .about-us-title {
     font-size: 2.5rem;
     color: #213547;
-    margin-bottom: 2rem;
+    margin: 0;
+
     text-align: center;
     font-weight: bold;
 }
@@ -29,12 +37,19 @@
     align-items: center;
 }
 
+.about-us-section-img {
+    width: 500px;
+    border-radius: 50% 0 50% 0;
+    background-color: #4697B8;
+}
+
 .about-us-image {
-    flex: 1;
-    max-width: 500px;
-    border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transform: translate(-7%, -7%); 
+    width: 500px;
+    border-radius: 50% 0 50% 0;
 }
 
 .about-us-text {

@@ -21,13 +21,14 @@
     color: #000;
 }
 
-h2 {
+.h2-login {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: #000;
 }
 
 .highlight {
-    color: #ECB176;
+    color: #0A668B;
 }
 
 h3 {
@@ -65,7 +66,7 @@ h3 {
 .login-button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #ECB176;
+    background-color: #0A668B;
     color: white;
     border: none;
     border-radius: 4px;
@@ -74,7 +75,7 @@ h3 {
 }
 
 .login-button:hover {
-    background-color: #D3995F;
+    background-color: #213547;
 }
 
 .links {
@@ -83,11 +84,11 @@ h3 {
 }
 
 .links a {
-    color: #ECB176;
+    color: #0A668B;
     text-decoration: none;
 }
 
 .links a:hover {
     text-decoration: underline;
-    color: #D3995F;
+    color: #213547;
 }

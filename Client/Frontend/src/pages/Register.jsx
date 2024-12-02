@@ -108,7 +108,7 @@ const Register = () => {
             <Header />
             <div className="register-container">
                 <div className="register-box">
-                    <h2>Bienvenido a <span className="highlight">Huellitas Tunja</span></h2>
+                    <h2 className='h2-login'>Bienvenido a <span className="highlight">Huellitas Tunja</span></h2>
                     <h3>Registrarse</h3>
                     {step === 1 ? (
                         <form onSubmit={(e) => { e.preventDefault(); handleNextStep(); }}>

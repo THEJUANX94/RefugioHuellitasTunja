@@ -273,8 +273,7 @@ const ProductManagement = () => {
     return (
         <div>
             <h2>Gestión de Productos</h2>
-            <button onClick={openCreateModal}>Agregar Producto</button>
-            <button onClick={openCategoryModal}>Agregar Categoría</button>
+
 
             <input
                 type="text"
@@ -283,7 +282,7 @@ const ProductManagement = () => {
                 onChange={handleSearchChange}
             />
 
-            <h3>Filtrar por Categoría</h3>
+            <label>Filtrar por Categoría</label><br />
             <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -294,7 +293,10 @@ const ProductManagement = () => {
                         {category.name}
                     </option>
                 ))}
-            </select>
+            </select>  <br />
+
+            <button onClick={openCreateModal}>Agregar Producto</button>
+            <button onClick={openCategoryModal}>Agregar Categoría</button>
 
             <h3>Lista de Productos</h3>
             <table>
@@ -323,7 +325,7 @@ const ProductManagement = () => {
                             <td>{product.category_name || 'Sin Categoría'}</td>
                             <td>{product.price}</td>
                             <td>
-                                <button onClick={() => handleEdit(product)}>Editar</button>
+                                <button onClick={() => handleEdit(product)}>Editar</button> <br />
                                 <button onClick={() => handleDelete(product.idproduct)}>
                                     Eliminar
                                 </button>

@@ -105,14 +105,17 @@ const Adopt = () => {
 
     // Function to calculate age from birthday
     const calculateAge = (birthday) => {
-        const birthDate = new Date(birthday);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+        const hoy = new Date();
+        const nacimiento = new Date(birthday);
+        let años = hoy.getFullYear() - nacimiento.getFullYear();
+        let meses = hoy.getMonth() - nacimiento.getMonth();
+
+        if (meses < 0) {
+            años--;
+            meses += 12;
         }
-        return age;
+
+        return `${años} año(s) y ${meses} mes(es)`;
     };
 
     // Calculate pagination
@@ -163,7 +166,7 @@ const Adopt = () => {
                                     {species.map(spec => (
                                         <li key={spec.idspecies}>
                                             <input
-                                                type="radio"
+                                                type="checkbox"
                                                 name="species"
                                                 value={spec.idspecies}
                                                 checked={selectedSpecies === spec.idspecies}
@@ -185,7 +188,7 @@ const Adopt = () => {
                                     {races.map((race, index) => (
                                         <li key={index}>
                                             <input
-                                                type="radio"
+                                                type="checkbox"
                                                 name="race"
                                                 value={race.race}
                                                 checked={selectedRace === race.race}

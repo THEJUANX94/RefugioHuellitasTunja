@@ -29,29 +29,46 @@
 /* Estilos generales para el formulario */
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="date"],
+input[type="number"],
+textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: white;
+    color: #171A1F;
+}
+
+select {
+    width: 30%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    color: #171A1F;
+    margin-right: 4px;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 0.75rem;
+    background-color: #0A668B;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-button:hover {
-    background-color: #ddd;
-}
-
-button:active {
-    background-color: #ccc;
-}
+    font-size: 1rem;
+    margin: 4px;
+  }
+  
+  button:hover {
+    background-color: #213547;
+  }
 
 /* Overlay del modal */
 .modal-overlay {

@@ -50,7 +50,7 @@ const Login = () => {
             <Header />
             <div className="login-container">
                 <div className="login-box">
-                    <h2>Bienvenido a <span className="highlight">Huellitas Tunja</span></h2>
+                    <h2 className='h2-login'>Bienvenido a <span className="highlight">Huellitas Tunja</span></h2>
                     <h3>Iniciar Sesión</h3>
                     <form onSubmit={handleLogin}>
                         <div className="form-group">

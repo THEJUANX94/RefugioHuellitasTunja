@@ -9,14 +9,18 @@ const AboutUs = () => {
             <Header />
             <div className="about-us">
                 {/* Sección Nosotros */}
-                <section className="about-us-section">
+                <div className='about-us-title-container'>
                     <h1 className="about-us-title">Nosotros</h1>
+                </div>
+                <section className="about-us-section">
                     <div className="about-us-content">
-                        <img
-                            src="https://via.placeholder.com/600x400"
-                            alt="Equipo Refugio Huellitas Tunja"
-                            className="about-us-image"
-                        />
+                        <div className='about-us-section-img'>
+                            <img
+                                src="https://images.pexels.com/photos/663573/pexels-photo-663573.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="Equipo Refugio Huellitas Tunja"
+                                className="about-us-image"
+                            />
+                        </div>
                         <div className="about-us-text">
                             <h2 className="about-us-subtitle">Misión</h2>
                             <p>
@@ -39,16 +43,20 @@ const AboutUs = () => {
                             de miles de perros y gatos, mientras sensibilizamos a la comunidad sobre el valor de cada vida animal.
                         </p>
                     </div>
-                    <img
-                        src="https://via.placeholder.com/400x300"
-                        alt="Actividades Refugio Huellitas Tunja"
-                        className="about-us-image"
-                    />
-                    <img
-                        src="https://via.placeholder.com/400x300"
-                        alt="Cifras Refugio Huellitas Tunja"
-                        className="about-us-image"
-                    />
+                    <div className='about-us-section-img'>
+                        <img
+                            src="https://images.pexels.com/photos/12195433/pexels-photo-12195433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            alt="Actividades Refugio Huellitas Tunja"
+                            className="about-us-image"
+                        />
+                    </div>
+                    <div className='about-us-section-img'>
+                        <img
+                            src="https://images.pexels.com/photos/1350590/pexels-photo-1350590.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="Cifras Refugio Huellitas Tunja"
+                            className="about-us-image"
+                        />
+                    </div>
                     <div className="about-us-card">
                         <h2 className="about-us-subtitle">Cifras</h2>
                         <p><strong>Cifras actualizadas al 2023:</strong></p>
@@ -62,9 +70,9 @@ const AboutUs = () => {
 
                 {/* Sección Historia */}
                 <section className="about-us-section">
-                    <h2 className="about-us-subtitle">Historia</h2>
                     <div className="about-us-content">
                         <div className="about-us-text">
+                            <h2 className="about-us-subtitle">Historia</h2>
                             <p>
                                 Refugio Huellitas Tunja nació en el año 2015 como un sueño de un grupo de voluntarios que deseaban
                                 hacer la diferencia en la vida de animales en situación de abandono. Comenzamos con recursos limitados,
@@ -72,11 +80,13 @@ const AboutUs = () => {
                                 donantes, adoptantes responsables y una comunidad comprometida con la causa animalista.
                             </p>
                         </div>
-                        <img
-                            src="https://via.placeholder.com/600x400"
-                            alt="Historia Refugio Huellitas Tunja"
-                            className="about-us-image"
-                        />
+                        <div className='about-us-section-img'>
+                            <img
+                                src="https://images.pexels.com/photos/1975989/pexels-photo-1975989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="Historia Refugio Huellitas Tunja"
+                                className="about-us-image"
+                            />
+                        </div>
                     </div>
                 </section>
 
@@ -84,11 +94,13 @@ const AboutUs = () => {
                 <section className="about-us-section">
                     <h2 className="about-us-subtitle">Meta</h2>
                     <div className="about-us-content">
-                        <img
-                            src="https://via.placeholder.com/600x400"
-                            alt="Meta Refugio Huellitas Tunja"
-                            className="about-us-image"
-                        />
+                        <div className='about-us-section-img'>
+                            <img
+                                src="https://images.pexels.com/photos/7474852/pexels-photo-7474852.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="Meta Refugio Huellitas Tunja"
+                                className="about-us-image"
+                            />
+                        </div>
                         <div className="about-us-text">
                             <p><strong>Para el 2025 queremos lograr:</strong></p>
                             <ul>

@@ -76,8 +76,8 @@
 }
 
 .icon:hover {
-    transform: scale(1.2); /* Efecto de agrandamiento */
-    color: #FFDD00; /* Cambia el color al pasar el cursor */
+    transform: scale(1.2); 
+    color: #0A668B;
 }
 
 /* Estilo para el nombre de usuario */
@@ -109,4 +109,5 @@
 
 .loginButton:hover {
     background-color: #0A668B;
+    color: white;
 }

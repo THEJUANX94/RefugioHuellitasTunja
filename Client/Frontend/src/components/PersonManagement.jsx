@@ -179,7 +179,7 @@ const PersonManagement = () => {
                     <option value="A">Admin</option>
                     <option value="E">Empleado</option>
                     <option value="C">Cliente</option>
-                </select>
+                </select><br />
                 <button onClick={() => openForm()}>Agregar Persona</button>
             </div>
 

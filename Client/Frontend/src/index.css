@@ -55,6 +55,14 @@ h1 {
   line-height: 1.1;
 }
 
+input {
+  box-sizing: border-box;
+}
+
+textarea {
+  box-sizing: border-box;
+}
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

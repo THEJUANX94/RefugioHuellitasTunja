@@ -41,7 +41,7 @@
 .service-card {
     flex: 1;
     background: #F3F4F6;
-    padding: 1.5rem;
+    padding: 1rem;
     text-align: center;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -136,7 +136,8 @@
 }
 
 .service-card img {
-    max-width: 100px;
+    max-width: 200px;
+    max-height: 120px;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
 }

@@ -152,7 +152,7 @@ const StorePage = () => {
                             <p>Tu rincón de confianza para el cuidado y amor de tus mascotas.</p>
                         </div>
                         <img
-                            src="https://via.placeholder.com/400x300"
+                            src="https://img.freepik.com/foto-gratis/adorable-perro-dueno-tienda-mascotas_23-2148872556.jpg?t=st=1733125330~exp=1733128930~hmac=27da8c76c92394a45c304d5ad59827f966a586f538a58c5960300999ec59af54&w=826"
                             alt="Mascotas"
                             className="store-hero-image"
                         />
@@ -163,7 +163,7 @@ const StorePage = () => {
                     <div className="store-sidebar">
                         <div className="filter-panel">
                             <h3>Filtrar por categorías</h3>
-                            <ul className="filter-list">
+                            <ul className="filter-options">
                                 {categories.map((category, index) => (
                                     <li key={index}>
                                         <input
@@ -206,7 +206,7 @@ const StorePage = () => {
                                                 <p className="product-price">{product.price}</p>
                                             </Link>
                                             <button
-                                                className="add-to-cart"
+                                                className="add-to-cart-store"
                                                 onClick={() => addToCart(product)}
                                             >
                                                 Añadir al carrito

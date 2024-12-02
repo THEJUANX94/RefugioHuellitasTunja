@@ -48,7 +48,7 @@
 }
 
 .next-button {
-    background-color: #ECB176;
+    background-color: #0A668B;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -59,7 +59,7 @@
 }
 
 .next-button:hover {
-    background-color: #D3995F;
+    background-color: #213547;
 }
 
 .button-row {
@@ -71,7 +71,7 @@
 
 .prev-button {
     width: 15%;
-    background-color: #ECB176;
+    background-color: #0A668B;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -84,7 +84,7 @@
 
 .register-button {
     width: 85%;
-    background-color: #ECB176;
+    background-color: #0A668B;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -94,7 +94,7 @@
 
 .prev-button:hover,
 .register-button:hover {
-    background-color: #D3995F;
+    background-color: #213547;
 }
 
 .error-message {
@@ -109,11 +109,11 @@
 }
 
 .links a {
-    color: #ECB176;
+    color: #0A668B;
     text-decoration: none;
 }
 
 .links a:hover {
     text-decoration: underline;
-    color: #D3995F;
+    color: #213547;
 }

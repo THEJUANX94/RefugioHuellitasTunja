@@ -174,7 +174,7 @@ const AdoptionManagement = () => {
 
             {/* Filtro por estado */}
             <div>
-                <label htmlFor="filterState">Filtrar por estado: </label>
+                <label htmlFor="filterState">Filtrar por estado: </label><br />
                 <select
                     id="filterState"
                     value={filterState}

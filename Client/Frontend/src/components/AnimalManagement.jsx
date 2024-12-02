@@ -318,7 +318,8 @@ const AnimalManagement = () => {
                     {races.map((race, index) => (
                         <option key={index} value={race.race}>{race.race}</option>
                     ))}
-                </select>
+                </select> <br />
+                <button onClick={handleAddPet}>Add New Pet</button>
             </div>
             <table>
                 <thead>
@@ -350,7 +351,7 @@ const AnimalManagement = () => {
                 </tbody>
             </table>
 
-            <button onClick={handleAddPet}>Add New Pet</button>
+
 
             {showModal && (
                 <div className="modal">
