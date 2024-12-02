@@ -14,6 +14,7 @@ import StorePage from './pages/Store';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/car';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import DonateForm from './pages/DonateForm';
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/store" element={<StorePage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+                <Route path="/donate-form" element={<DonateForm />} />
             </Routes>
         </Router>
     );

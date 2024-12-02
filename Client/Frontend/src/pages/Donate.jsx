@@ -1,9 +1,12 @@
 import React from "react";
+import { NavLink, useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./css/style_donate.css";
 
 const DonatePage = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <Header />
@@ -16,7 +19,7 @@ const DonatePage = () => {
                             Con tu apoyo, podemos seguir rescatando, cuidando y encontrando
                             hogares amorosos para miles de animales. Haz la diferencia hoy.
                         </p>
-                        <button className="cta-button">Donar Ahora</button>
+                        <NavLink to="/donate-form" className={({ isActive }) => isActive ? 'active' : ''}>Inicio</NavLink>
                     </div>
                     <div className="donate-hero-image">
                         <div className="placeholder-image"></div>

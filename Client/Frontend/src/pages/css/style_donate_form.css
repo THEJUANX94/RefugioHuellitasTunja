@@ -1,0 +1,96 @@
+/* General Styles */
+  body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .formContainer{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Form Container */
+  form {
+    background-color: white;
+    border: 1px solid #b0bec5; /* Light gray-blue */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    max-width: 400px;
+    margin: 25px 0;
+    box-sizing: border-box;
+  }
+  
+  /* Headings */
+  h1,
+  p {
+    color: #37474f; /* Dark bluish-gray */
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  /* Labels and Inputs */
+  form label {
+    color: #37474f; /* Dark bluish-gray */
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  form input,
+  form textarea {
+    background-color: #ffdacf;
+    color: #37474f;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  form input:focus,
+  form textarea:focus {
+    outline: none;
+    border-color: #90a4ae; /* Lighter gray-blue */
+    box-shadow: 0 0 4px #90a4ae;
+  }
+  
+  /* Button */
+  form button {
+    background-color: #ff7043; /* Light gray-blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #c63509; /* Darker gray-blue */
+  }
+  
+  /* Success Message */
+  form + div {
+    margin-top: 20px;
+    background-color: #e8f5e9; /* Light green */
+    border: 1px solid #81c784; /* Green border */
+    color: #388e3c; /* Green text */
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
