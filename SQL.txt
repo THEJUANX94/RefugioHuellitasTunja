@@ -117,13 +117,22 @@ CREATE TABLE categories
     name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE tarjetas (
+    id SERIAL PRIMARY KEY,
+    numero_tarjeta VARCHAR(16) NOT NULL,
+    fecha_expiracion VARCHAR(5) NOT NULL,
+    cvv VARCHAR(3) NOT NULL,
+    donacion_id INT NOT NULL,
+    FOREIGN KEY (donacion_id) REFERENCES donaciones(id) ON DELETE CASCADE
+);
+
 
 ALTER TABLE Login 
 	add CONSTRAINT log_log_PK PRIMARY KEY (login);
 	
 ALTER TABLE "User" 
 	ADD CONSTRAINT user_login_PK PRIMARY KEY (login),
-	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'))
+	ADD CONSTRAINT user_type_CK CHECK ("type" in ('C', 'E', 'A'));
 	
 ALTER TABLE Species
 	ADD CONSTRAINT spe_idspecies_PK PRIMARY KEY (idspecies);
@@ -133,11 +142,11 @@ ALTER TABLE Pets
 	ADD CONSTRAINT pet_idspecies_FK FOREIGN KEY (idspecies) REFERENCES Species(idspecies);
 	
 ALTER TABLE Images 
-	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet)
+	ADD CONSTRAINT img_idpet_FK FOREIGN KEY (idpet) REFERENCES Pets(idpet);
 	
 ALTER TABLE Forms
 	ADD CONSTRAINT frm_idform_PK PRIMARY KEY (idform),
-	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login),
+	ADD CONSTRAINT frm_login_FK FOREIGN KEY (login) REFERENCES "User"(login);
 	
 ALTER TABLE Adoptions
 	ADD CONSTRAINT adp_state_CK CHECK ("state" in ('A', 'D', 'W')),
@@ -145,7 +154,16 @@ ALTER TABLE Adoptions
 	ADD CONSTRAINT adp_idform_FK FOREIGN KEY (idform) REFERENCES Forms(idform),
 	ADD CONSTRAINT pet_idpetidform_PK PRIMARY KEY (idpet, idform);
 	
-	
+CREATE TABLE donaciones (
+    id SERIAL PRIMARY KEY,              -- ID único de la donación
+    nombre VARCHAR(50) NOT NULL,        -- Nombre del donante
+    apellido VARCHAR(50) NOT NULL,      -- Apellido del donante
+    correo VARCHAR(100) NOT NULL,       -- Correo del donante
+    monto DECIMAL(10, 2) NOT NULL,      -- Monto de la donación
+    mensaje TEXT,                       -- Mensaje opcional del donante
+    fecha TIMESTAMP DEFAULT NOW()       -- Fecha y hora de la donación
+);
+
 ALTER TABLE products
     ADD CONSTRAINT prod_idprod_PK PRIMARY KEY (idproduct),
     ADD CONSTRAINT prod_unitmeasure_CK CHECK (unitmeasure IN ('Kg', 'g', 'l', 'ml', 'U')),
@@ -177,5 +195,4 @@ ADD CONSTRAINT img_idprod_FK FOREIGN KEY (idproduct) REFERENCES products(idprodu
 
 ALTER TABLE categories
     ADD CONSTRAINT cat_idcat_PK PRIMARY KEY (idcategory);
-
 
